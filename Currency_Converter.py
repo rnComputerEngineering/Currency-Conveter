@@ -17,7 +17,7 @@ else:
 class Mainwindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("converter.ui", self)  # yes i use pycharm
+        uic.loadUi("converter.ui", self)
         self.button.clicked.connect((lambda: self.convert_calc(self.showinput(), self.showoutput(), self.takeinput())))
         self.label.hide()
         self.label.setWordWrap(True)
