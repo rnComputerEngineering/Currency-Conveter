@@ -4,26 +4,23 @@ from PyQt6.QtGui import QIcon
 from PyQt6 import uic
 import requests
 
-url = "https://api.frankfurter.app/latest"
-response = requests.get(url)
-if response.status_code == 200:
-    data = response.json()
-    rates = data["rates"]
-else:
-    print("Invalid API error")
+
+class Errormessage(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        uic.loadUi("C:\\Users\\MONSTER1\\PycharmProjects\\Currency_Converter\\error_message.ui", self)
 
 
 class Mainwindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("converter.ui", self)
+        uic.loadUi("C:\\Users\\MONSTER1\\PycharmProjects\\Currency_Converter\\converter.ui", self)
         self.button.clicked.connect((lambda: self.convert_calc(self.showinput(), self.showoutput(), self.takeinput())))
         self.label.hide()
         self.label.setWordWrap(True)
-        icon = (QIcon("icon.png"))
+        icon = (QIcon("C:\\Users\\MONSTER1\\PycharmProjects\\Currency_Converter\\icon.png"))
         self.setWindowIcon(icon)
-        self.setWindowTitle("Currency Calculator")
-
+        self.setWindowTitle("Currency Converter")
 
     def takeinput(self):
         return self.input.text()
@@ -54,11 +51,26 @@ class Mainwindow(QMainWindow):
             self.showresult(result)
 
 
-app = QApplication(sys.argv)
-window = Mainwindow()
-window.show()
+url = "https://api.frankfurter.app/latest"
 try:
-    sys.exit(app.exec())
-except SystemExit:
-    print("Closing Window")
+    response = requests.get(url)
+    data = response.json()
+    rates = data["rates"]
+    app = QApplication(sys.argv)
+    window = Mainwindow()
+    window.show()
+    try:
+        sys.exit(app.exec())
+    except SystemExit:
+        print("Closing Window")
 
+
+except requests.RequestException:
+    print("no internet connection")
+    app = QApplication(sys.argv)
+    window = Errormessage()
+    window.show()
+    try:
+        sys.exit(app.exec())
+    except SystemExit:
+        print("Closing Window")
