@@ -11,7 +11,6 @@ if response.status_code == 200:
     rates = data["rates"]
 else:
     print("Invalid API error")
-# API(the program takes information from this api using the Requests library)
 
 
 class Mainwindow(QMainWindow):
@@ -24,13 +23,7 @@ class Mainwindow(QMainWindow):
         icon = (QIcon("icon.png"))
         self.setWindowIcon(icon)
         self.setWindowTitle("Currency Calculator")
-# PyQt6 stuff. If you don't know PyQt6, it is normal that you don't understand these. There are PyQt6 tutorials on YouTube.
-# Here is a horrible explanation of what this code does.
-# We make a new class and add QMainWindows's features into it.
-# uic.loadUi takes and loads information from an ui file made with PyQt6 designer.
-# The ui file has the general properties of the window(button, label etc. and their positions, size...).
-# self.label.hide hides the error message if there is no error
-# self.button.clicked.connect runs the function I defined below when the button is pressed.
+
 
     def takeinput(self):
         return self.input.text()
@@ -59,8 +52,6 @@ class Mainwindow(QMainWindow):
             new_value = z * (1 / rates[x])
             result = new_value * rates[y]
             self.showresult(result)
-# Functions are self-explanatory. Most of them collect information for convert_calc function.
-# convert_calc function takes the information, calculates and outputs the result(via showresult function)
 
 
 app = QApplication(sys.argv)
@@ -70,4 +61,4 @@ try:
     sys.exit(app.exec())
 except SystemExit:
     print("Closing Window")
-# These make it so the window can open and close properly
+
