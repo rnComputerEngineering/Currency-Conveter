@@ -8,17 +8,17 @@ import requests
 class Errormessage(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("C:\\Users\\MONSTER1\\PycharmProjects\\Currency_Converter\\error_message.ui", self)
+        uic.loadUi("error_message.ui", self)
 
 
 class Mainwindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("C:\\Users\\MONSTER1\\PycharmProjects\\Currency_Converter\\converter.ui", self)
+        uic.loadUi("converter.ui", self)
         self.button.clicked.connect((lambda: self.convert_calc(self.showinput(), self.showoutput(), self.takeinput())))
         self.label.hide()
         self.label.setWordWrap(True)
-        icon = (QIcon("C:\\Users\\MONSTER1\\PycharmProjects\\Currency_Converter\\icon.png"))
+        icon = (QIcon("icon.png"))
         self.setWindowIcon(icon)
         self.setWindowTitle("Currency Converter")
 
