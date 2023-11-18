@@ -1,25 +1,29 @@
+import os.path
 import sys
 from PyQt6.QtWidgets import QApplication, QMainWindow
-from PyQt6.QtGui import QIcon
 from PyQt6 import uic
 import requests
 
+executable_path = os.path.dirname(os.path.abspath(__file__))
+executable_path = os.path.join(executable_path,"uifiles")
+first_ui = os.path.join(executable_path, "error_message.ui")
+second_ui = os.path.join(executable_path, "converter.ui")
+print(second_ui)
 
-class Errormessage(QMainWindow):
+
+class ErrorMessage(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("error_message.ui", self)
+        uic.loadUi(f"{first_ui}", self)
 
 
-class Mainwindow(QMainWindow):
+class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi("converter.ui", self)
+        uic.loadUi(second_ui, self)
         self.button.clicked.connect((lambda: self.convert_calc(self.showinput(), self.showoutput(), self.takeinput())))
         self.label.hide()
         self.label.setWordWrap(True)
-        icon = (QIcon("icon.png"))
-        self.setWindowIcon(icon)
         self.setWindowTitle("Currency Converter")
 
     def takeinput(self):
@@ -57,20 +61,20 @@ try:
     data = response.json()
     rates = data["rates"]
     app = QApplication(sys.argv)
-    window = Mainwindow()
+    window = MainWindow()
     window.show()
     try:
         sys.exit(app.exec())
     except SystemExit:
-        print("Closing Window")
+        pass
 
 
 except requests.RequestException:
-    print("no internet connection")
     app = QApplication(sys.argv)
-    window = Errormessage()
+    window = ErrorMessage()
     window.show()
     try:
         sys.exit(app.exec())
     except SystemExit:
-        print("Closing Window")
+        pass
+
